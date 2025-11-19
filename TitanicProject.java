@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class TitanicProject {
     public static ProjectMatrix titanicData;
+
     public static final ArrayList<Integer> omittedColumns = new ArrayList<>();
     public static void main(String[] args){
 
@@ -14,6 +15,7 @@ public class TitanicProject {
         // with the same name and putting the variable there.
         process(TempEnv.DATAPATH);
         standardizeMissingAge();
+        titanicData.splitData();
 
         System.out.println(titanicData);
     }
