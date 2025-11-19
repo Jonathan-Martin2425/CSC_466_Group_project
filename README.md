@@ -9,5 +9,5 @@ algorithms
 
 updates
 - parsed data into a matrix/2d list with details on attributes in TitanicProject.java
-- age had some NULL cases, so made those -1 to mark them
-- even though some attributes are integers, made 2d_list of type Double becuase some attributes required them and is required algorithms we are implementing
+- cases where age = NULL were set to the mean of all other age values to not affect SVM
+- even though some attributes are integers, made 2d_list of type Double because some attributes required them and is required algorithms we are implementing

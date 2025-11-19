@@ -45,6 +45,10 @@ public class ProjectMatrix {
     public double getVal(int row, int attribute){
         return twoD_list.get(row).get(attribute);
     }
+
+    public double setVal(int row, int attribute, double val){
+        return twoD_list.get(row).set(attribute, val);
+    }
     @Override
     public String toString(){
         return twoD_list.toString();

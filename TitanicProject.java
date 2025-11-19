@@ -13,6 +13,7 @@ public class TitanicProject {
         // I recommend either setting up environments in Java, or creating a class
         // with the same name and putting the variable there.
         process(TempEnv.DATAPATH);
+        standardizeMissingAge();
 
         System.out.println(titanicData);
     }
@@ -77,5 +78,30 @@ public class TitanicProject {
         } catch (IOException e) {
             System.out.println("Bad file name error");
         }
+    }
+
+    // sets age values that don't exist in the data to the mean/average
+    // of all age values combines
+    public static void standardizeMissingAge(){
+        double mean = 0.0, sum = 0.0;
+
+        // find mean of age attribute
+        for(int i = 0; i < titanicData.getSize(); i++){
+            double val = titanicData.getVal(i, 3);
+            if(val != -1.0){
+                mean += val;
+                sum++;
+            }
+        }
+        mean = mean / sum;
+
+        //set each row without an age to the mean
+        for(int i = 0; i < titanicData.getSize(); i++){
+            if(titanicData.getVal(i, 3) == -1.0){
+                titanicData.setVal(i, 3, mean);
+            }
+        }
+
+        System.out.printf("mean: %f\n", mean);
     }
 }
