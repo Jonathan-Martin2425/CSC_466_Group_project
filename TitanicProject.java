@@ -17,6 +17,23 @@ public class TitanicProject {
         standardizeMissingAge();
         titanicData.splitData();
 
+        int labelCol = 0; // column 0 in each row is survived 
+
+        // number of feature columns = row size - 1
+        int numFeats = titanicData.getRowSize() - 1;
+
+        // hyperparamters 
+        double C = 1.0;
+        double eta = 0.0001;
+        int epochs = 50;
+
+        LinearSVM svm = new LinearSVM(numFeats, C, eta, epochs);
+        // train
+        svm.fit(titanicData.trainingSet, labelCol);
+
+        // evaluate on test set
+        double accuracy = evaluateAccuracy(svm, titanicData.testingSet, labelCol);
+        System.out.printf("Test set accuracy: %.3f%%\n", accuracy); 
         System.out.println(titanicData);
     }
 
@@ -105,5 +122,19 @@ public class TitanicProject {
         }
 
         System.out.printf("mean: %f\n", mean);
+    }
+
+    public static double evaluateAccuracy(LinearSVM svm, ProjectMatrix test, int labelCol) {
+        int correct = 0;
+        int total = test.getSize();
+
+        for (int i = 0; i < total; i++) {
+            int pred = svm.predictSurvived(test, i, labelCol);
+            int actual = (int) test.getVal(i, labelCol);
+            if (pred == actual) {
+                correct++;
+            }
+        }
+        return (double) correct / total;
     }
 }
