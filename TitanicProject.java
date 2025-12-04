@@ -13,7 +13,9 @@ public class TitanicProject {
 
         // I recommend either setting up environments in Java, or creating a class
         // with the same name and putting the variable there.
-        process(TempEnv.DATAPATH);
+
+        //process(TempEnv.DATAPATH);
+        process("tested.csv");
         standardizeMissingAge();
         titanicData.splitData();
 
@@ -35,6 +37,15 @@ public class TitanicProject {
         double accuracy = evaluateAccuracy(svm, titanicData.testingSet, labelCol);
         System.out.printf("Test set accuracy: %.3f%%\n", accuracy); 
         System.out.println(titanicData);
+        int labelCol = 0;
+        int numFolds = 10;
+        double C = 0.01;
+        double learningRate = 0.001;
+        int epochs = 1000;
+
+        CrossValidation cv = new CrossValidation(titanicData, labelCol, numFolds, C, learningRate, epochs);
+        cv.run();
+
     }
 
     public static void process(String filename){
