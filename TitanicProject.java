@@ -23,11 +23,30 @@ public class TitanicProject {
         int labelCol = 0;
         int numFolds = 10;
         double C = 0.01;
-        double learningRate = 0.001;
-        int epochs = 1000;
+        double learningRate = 0.005;
+        int epochs = 75;
 
-        CrossValidation cv = new CrossValidation(titanicData, labelCol, numFolds, C, learningRate, epochs);
+        CrossValidation cv = new CrossValidation(titanicData.trainingSet, labelCol, numFolds, C, learningRate, epochs);
         cv.run();
+
+        //model predicting 20% test data
+
+        int numFeatures = titanicData.getRowSize() - 1;
+        LinearSVM testSVM = new LinearSVM(numFeatures, C, learningRate, epochs);
+        testSVM.fit(titanicData.trainingSet, labelCol);
+        int correct = 0;
+        for (int i = 0; i < titanicData.testingSet.getSize(); i++) {
+            int pred = testSVM.predictSurvived(titanicData.testingSet, i, labelCol);
+            int actual = (int) titanicData.testingSet.getVal(i, labelCol);
+            if (pred == actual) {
+                correct++;
+            }
+        }
+
+        double testAccuracy = (double) correct / titanicData.testingSet.getSize();
+
+        System.out.printf("Final Test Set Accuracy (20%% data): %.4f\n", testAccuracy);
+        System.out.printf("Final correct: %d. Total final: %d\n", correct, titanicData.testingSet.getSize());
 
     }
 

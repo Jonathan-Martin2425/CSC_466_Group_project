@@ -57,7 +57,7 @@ public class CrossValidation {
             }
 
             double accuracy = (double) correct / testSet.getSize();
-            System.out.printf("Fold %d accuracy: %.4f\n", fold + 1, accuracy);
+            System.out.printf("Fold %d accuracy: %.4f. Correct: %d. Total: %d\n", fold + 1, accuracy, correct, testSet.getSize());
             totalAccuracy += accuracy;
         }
 
