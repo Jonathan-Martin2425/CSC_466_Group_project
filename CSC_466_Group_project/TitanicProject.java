@@ -1,7 +1,5 @@
 package CSC_466_Group_project;
 
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +13,9 @@ public class TitanicProject {
 
         // I recommend either setting up environments in Java, or creating a class
         // with the same name and putting the variable there.
+
         process(TempEnv.DATAPATH);
+        // process("tested.csv");
         standardizeMissingAge();
         titanicData.splitData();
 
@@ -37,6 +37,12 @@ public class TitanicProject {
         double accuracy = evaluateAccuracy(svm, titanicData.testingSet, labelCol);
         System.out.printf("Test set accuracy: %.3f%%\n", accuracy * 100); 
         System.out.println(titanicData);
+        int numFolds = 10;
+        double learningRate = 0.001;
+
+        CrossValidation cv = new CrossValidation(titanicData, labelCol, numFolds, C, learningRate, epochs);
+        cv.run();
+
     }
 
     public static void process(String filename){
@@ -139,7 +145,7 @@ public class TitanicProject {
         }
         return (double) correct / total;
     }
-
+    
     public static void printSamplePredictions(LinearSVM svm, ProjectMatrix test, int labelCol, int count) {
         System.out.println("Sample predictions (row actual -> predicted): ");
         int limit = Math.min(count, test.getSize());

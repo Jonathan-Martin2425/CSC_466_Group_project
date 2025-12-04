@@ -1,8 +1,9 @@
 package CSC_466_Group_project;
 
-
 import java.util.ArrayList;
 
+import java.util.Collections;
+import java.util.Random;
 public class ProjectMatrix {
     private ArrayList<ArrayList<Double>> twoD_list;
     public ProjectMatrix trainingSet;
@@ -83,6 +84,10 @@ public class ProjectMatrix {
     @Override
     public String toString(){
         return twoD_list.toString();
+    }
+
+    public void shuffle(Random rand) {
+        Collections.shuffle(twoD_list, rand);
     }
 }
 

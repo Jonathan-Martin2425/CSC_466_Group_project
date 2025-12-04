@@ -1,8 +1,5 @@
 package CSC_466_Group_project;
 
-import java.util.Random;
-
-import CSC_466_Group_project.ProjectMatrix;
 
 public class LinearSVM {
     private double[] w; // weight vector
