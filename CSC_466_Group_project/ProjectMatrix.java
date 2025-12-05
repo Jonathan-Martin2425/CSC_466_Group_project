@@ -1,4 +1,4 @@
-package CSC_466_Group_project;
+package CSC_466_Group_project.CSC_466_Group_project;
 
 import java.util.ArrayList;
 
@@ -80,6 +80,34 @@ public class ProjectMatrix {
         System.out.printf("train size: %d\n", trainingSet.getSize());
         System.out.printf("test size: %d\n", testingSet.getSize());
         System.out.printf("total size: %d\n", getSize());
+    }
+
+    public void normalize(int labelIndex){
+        int rowSize = getRowSize(), rows = getSize();
+        ArrayList<Double> newRow, curRow;
+        double vector_mag;
+
+        for(int i = 0; i < rows; i++){
+            curRow = twoD_list.get(i);
+            newRow = new ArrayList<>();
+
+            vector_mag = 0;
+            for(int j= 0; j < rowSize; j++){
+                if(j == labelIndex) continue;
+                vector_mag += Math.pow(curRow.get(j), 2);
+            }
+            vector_mag = Math.sqrt(vector_mag);
+
+            for(int j = 0; j < rowSize; j++){
+                if(j == labelIndex){
+                    newRow.add(curRow.get(labelIndex));
+                }else{
+                    newRow.add(curRow.get(j) / vector_mag);
+                }
+            }
+
+            twoD_list.set(i, newRow);
+        }
     }
     @Override
     public String toString(){

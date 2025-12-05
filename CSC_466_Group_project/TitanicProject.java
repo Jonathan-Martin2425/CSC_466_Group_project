@@ -1,9 +1,10 @@
-package CSC_466_Group_project;
+package CSC_466_Group_project.CSC_466_Group_project;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TitanicProject {
     public static ProjectMatrix titanicData;
@@ -14,18 +15,22 @@ public class TitanicProject {
         // I recommend either setting up environments in Java, or creating a class
         // with the same name and putting the variable there.
 
-        process(TempEnv.DATAPATH);
-        // process("tested.csv");
-        standardizeMissingAge();
-        titanicData.splitData();
+        int labelCol = 0; // column 0 in each row is survived
 
-        int labelCol = 0; // column 0 in each row is survived 
+        process(TempEnv.DATAPATH);
+        standardizeMissingAge();
+
+        /* things to better show accuracy of model */
+        //titanicData.normalize(labelCol);
+        //titanicData.shuffle(new Random());
+
+        titanicData.splitData();
 
         // number of feature columns = row size - 1
         int numFeats = titanicData.getRowSize() - 1;
 
-        // hyperparamters 
-        double C = 1.0;
+        // hyper parameters
+        double C = 1;
         double eta = 0.0001;
         int epochs = 50;
 
@@ -39,10 +44,11 @@ public class TitanicProject {
         System.out.println(titanicData);
         int numFolds = 10;
         double learningRate = 0.001;
-
         CrossValidation cv = new CrossValidation(titanicData, labelCol, numFolds, C, learningRate, epochs);
         cv.run();
 
+        printSamplePredictions(svm, titanicData.testingSet, labelCol, 10);
+        svm.printWeightFunction();
     }
 
     public static void process(String filename){
@@ -149,10 +155,12 @@ public class TitanicProject {
     public static void printSamplePredictions(LinearSVM svm, ProjectMatrix test, int labelCol, int count) {
         System.out.println("Sample predictions (row actual -> predicted): ");
         int limit = Math.min(count, test.getSize());
-        for (int i = 0; i < limit; i++) {
+        int randRange = (int) Math.floor(Math.random() * (test.getSize() - limit));
+        for (int i = randRange; i < test.getSize(); i++) {
             int pred = svm.predictSurvived(test, i, labelCol);
             int actual = (int) test.getVal(i, labelCol);
             System.out.printf("Row %d: %d -> %d\n", i, actual, pred);
+
         }
     }
 }

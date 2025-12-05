@@ -1,4 +1,4 @@
-package CSC_466_Group_project;
+package CSC_466_Group_project.CSC_466_Group_project;
 
 
 

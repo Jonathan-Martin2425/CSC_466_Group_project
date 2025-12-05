@@ -1,0 +1,8 @@
+
+Jonathan Martin:
+   - Parsed data into a ProjectMatrix object
+   - Made presentation and report
+Kyra Ramirez:
+   -
+Uriel Hernandez Vega:
+   -

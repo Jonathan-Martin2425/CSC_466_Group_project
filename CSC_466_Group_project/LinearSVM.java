@@ -1,5 +1,6 @@
-package CSC_466_Group_project;
+package CSC_466_Group_project.CSC_466_Group_project;
 
+import java.util.Arrays;
 
 public class LinearSVM {
     private double[] w; // weight vector
@@ -55,7 +56,7 @@ public class LinearSVM {
         }
     }
 
-    // preict the raw sign for a row in project matrix
+    // predict the raw sign for a row in project matrix
     // should return +1 or -1
     public int predictRow(ProjectMatrix data, int row, int labelCol) {
         int numFeats = data.getRowSize() - 1;
@@ -71,7 +72,7 @@ public class LinearSVM {
         return (sign == 1) ? 1 : 0;
     }
 
-    // heler functions
+    // helper functions
 
     private double[] extractFeatures(ProjectMatrix m, int row, int labelCol, int numFeats) {
         double[] x = new double[numFeats];
@@ -91,5 +92,9 @@ public class LinearSVM {
             sum += a[i] * b[i];
         }
         return sum;
+    }
+
+    public void printWeightFunction(){
+        System.out.printf("feature weights: %s\nb: %f\n", Arrays.toString(w), b);
     }
 }
