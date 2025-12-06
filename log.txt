@@ -3,9 +3,8 @@ Jonathan Martin:
    - Parsed data into a ProjectMatrix object
    - Made presentation and report
 Kyra Ramirez:
-   - implemented the SVM class and algorithm
+   - implemented the SVM class and algorithm after the preprocessing was complete
    - helped work on the presentation and report
-   - when: after the preprocessing was complete
    - amount of time: around a total of 4 hours
 Uriel Hernandez Vega:
    - implemented CV 
